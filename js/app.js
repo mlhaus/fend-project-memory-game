@@ -25,6 +25,26 @@
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+let totalMoves = 0;
+let correctGuesses = 0;
+let starRating = 3;
+
+function setupBoard(numCards) {
+  let gameBoard = document.querySelector('.deck');
+  gameBoard.innerHTML = '';
+  totalMoves = 0;
+  correctGuesses = 0;
+  starRating = 3;
+  for(let i = 0; i < numCards; i++){
+    let cardLI = document.createElement('li');
+    cardLI.classList.add('card'); // Add  'open' and 'show' to the argument list to preview the cards
+    let cardSymbol = document.createElement('i');
+    cardSymbol.classList.add('fa', 'fa-' + newDeck.cards[i].symbol);
+    cardLI.appendChild(cardSymbol);
+    gameBoard.appendChild(cardLI);
+  }
+}
+
 function initialize(numCards) {
   let cardImages = ['diamond', 'paper-plane-o', 'anchor', 'bolt', 'cube', 'leaf', 'bicycle', 'bomb'];
   for(let i = 0; i < numCards; i++){
@@ -32,6 +52,7 @@ function initialize(numCards) {
     newDeck.cards.push(newCard);
   }
   newDeck.shuffle(newDeck.cards);
+  setupBoard(numCards);
 }
 let newDeck = new Deck();
 initialize(16);
