@@ -27,12 +27,11 @@
 
 function initialize(numCards) {
   let cardImages = ['diamond', 'paper-plane-o', 'anchor', 'bolt', 'cube', 'leaf', 'bicycle', 'bomb'];
-  let newDeck = new Deck();
   for(let i = 0; i < numCards; i++){
     let newCard = new Card(cardImages[i % (numCards / 2)]);
     newDeck.cards.push(newCard);
   }
   newDeck.shuffle(newDeck.cards);
 }
-
+let newDeck = new Deck();
 initialize(16);
