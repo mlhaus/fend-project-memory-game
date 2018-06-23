@@ -1,3 +1,5 @@
+'use strict';
+
 let Deck = function() {
   this.cards = [];
   // Shuffle function from http://stackoverflow.com/a/2450976

@@ -1,3 +1,6 @@
+/* globals Card, Deck */
+'use strict';
+
 /*
  * Create a list that holds all of your cards
  */
@@ -21,3 +24,15 @@
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+function initialize(numCards) {
+  let cardImages = ['diamond', 'paper-plane-o', 'anchor', 'bolt', 'cube', 'leaf', 'bicycle', 'bomb'];
+  let newDeck = new Deck();
+  for(let i = 0; i < numCards; i++){
+    let newCard = new Card(cardImages[i % (numCards / 2)]);
+    newDeck.cards.push(newCard);
+  }
+  newDeck.shuffle(newDeck.cards);
+}
+
+initialize(16);
