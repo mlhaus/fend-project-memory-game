@@ -25,7 +25,8 @@
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-let gameBoard = document.querySelector('.deck');
+const numGameCards = 16;
+const gameBoard = document.querySelector('.deck');
 let totalMoves = 0;
 let correctGuesses = 0;
 let starRating = 3;
@@ -35,9 +36,10 @@ let card2;
 let thisNode;
 let node1;
 let node2;
+let gameOver = false;
 
 function isGameOver() {
-  return false;
+  return correctGuesses === numGameCards / 2;
 }
 
 function doCardsMatch(c1, c2, n1, n2) {
@@ -49,7 +51,7 @@ function doCardsMatch(c1, c2, n1, n2) {
     n1.classList.add('match');
     n2.classList.add('match');
     correctGuesses++;
-    let gameOver = isGameOver();
+    gameOver = isGameOver();
   }
   else {
     c1.isFlipped = false;
@@ -116,4 +118,4 @@ function initialize(numCards) {
   setupBoard(numCards);
 }
 let newDeck = new Deck();
-initialize(16);
+initialize(numGameCards);
