@@ -14,6 +14,7 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+    position: relative;
 }
 
 body {
@@ -106,4 +107,22 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+#gameOverModal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+#innerModal {
+  max-width: 500px;
+  margin: 64px auto;
+  text-align: center;
+  background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+  padding: 32px;
+  border-radius: 10px;
 }
