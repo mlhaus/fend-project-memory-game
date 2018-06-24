@@ -17,3 +17,7 @@ This single-player game consists of pairs of cards, each with different symbols 
 ## Live game
 
 Play the game by visiting: [https://mlhaus.github.io/fend-project-memory-game/](https://mlhaus.github.io/fend-project-memory-game/).
+
+## Known Bugs
+
+The user can click on 3 or more cards really fast. I may want to prevent extra clicks until the first two cards turn back over.

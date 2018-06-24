@@ -25,32 +25,54 @@
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+let gameBoard = document.querySelector('.deck');
 let totalMoves = 0;
 let correctGuesses = 0;
 let starRating = 3;
 let thisCard;
 let card1;
 let card2;
+let thisNode;
+let node1;
+let node2;
 
-function doCardsMatch(c1, c2) {
-  console.log(c1);
-  console.log(c2);
+function isGameOver() {
+  return false;
+}
+
+function doCardsMatch(c1, c2, n1, n2) {
+  setTimeout(function(){
+    n1.classList.remove('open', 'show');
+    n2.classList.remove('open', 'show');
+  }, 1000);
+  if(c1.symbol === c2.symbol) {
+    n1.classList.add('match');
+    n2.classList.add('match');
+    correctGuesses++;
+    let gameOver = isGameOver();
+  }
+  else {
+    c1.isFlipped = false;
+    c2.isFlipped = false;
+  }
 }
 
 function respondToImageClick(event){
   if(event.target.nodeName === 'LI'){
-    thisCard = event.target.currentLI;
+    thisNode = event.target;
+    thisCard = thisNode.currentLI;
     if(!thisCard.isFlipped){
-      event.target.classList.add('open', 'show');
+      thisNode.classList.add('open', 'show');
       thisCard.isFlipped = true;
       thisCard.numClicks++;
       totalMoves++;
     }
   }
   if(event.target.nodeName === 'I'){
-    thisCard = event.target.parentNode.currentLI;
-    if(!thisCard.currentLI.isFlipped){
-      event.target.classList.add('open', 'show');
+    thisNode = event.target.parentNode;
+    thisCard = thisNode.currentLI;
+    if(!thisCard.isFlipped){
+      thisNode.classList.add('open', 'show');
       thisCard.isFlipped = true;
       thisCard.numClicks++;
       totalMoves++;
@@ -58,15 +80,16 @@ function respondToImageClick(event){
   }
   if(totalMoves % 2 === 1) {
     card1 = thisCard;
+    node1 = thisNode;
   }
   else {
     card2 = thisCard;
-    doCardsMatch(card1, card2);
+    node2 = thisNode;
+    doCardsMatch(card1, card2, node1, node2);
   }
 }
 
 function setupBoard(numCards) {
-  let gameBoard = document.querySelector('.deck');
   gameBoard.addEventListener('click', respondToImageClick);
   gameBoard.innerHTML = '';
   totalMoves = 0;
