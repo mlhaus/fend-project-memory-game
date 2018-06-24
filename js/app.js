@@ -29,14 +29,31 @@ let totalMoves = 0;
 let correctGuesses = 0;
 let starRating = 3;
 
+function respondToImageClick(event){
+  if(event.target.nodeName === 'LI'){
+    event.target.classList.add('open', 'show');
+    event.target.currentLI.isFlipped = true;
+    event.target.currentLI.isClickable = false;
+    event.target.currentLI.numClicks++;
+  }
+  if(event.target.nodeName === 'I'){
+    event.target.parentNode.classList.add('open', 'show');
+    event.target.parentNode.currentLI.isFlipped = true;
+    event.target.parentNode.currentLI.isClickable = false;
+    event.target.parentNode.currentLI.numClicks++;
+  }
+}
+
 function setupBoard(numCards) {
   let gameBoard = document.querySelector('.deck');
+  gameBoard.addEventListener('click', respondToImageClick);
   gameBoard.innerHTML = '';
   totalMoves = 0;
   correctGuesses = 0;
   starRating = 3;
   for(let i = 0; i < numCards; i++){
     let cardLI = document.createElement('li');
+    cardLI.currentLI = newDeck.cards[i];
     cardLI.classList.add('card'); // Add  'open' and 'show' to the argument list to preview the cards
     let cardSymbol = document.createElement('i');
     cardSymbol.classList.add('fa', 'fa-' + newDeck.cards[i].symbol);
