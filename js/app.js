@@ -31,16 +31,20 @@ let starRating = 3;
 
 function respondToImageClick(event){
   if(event.target.nodeName === 'LI'){
-    event.target.classList.add('open', 'show');
-    event.target.currentLI.isFlipped = true;
-    event.target.currentLI.isClickable = false;
-    event.target.currentLI.numClicks++;
+    if(!event.target.currentLI.isFlipped){
+      event.target.classList.add('open', 'show');
+      event.target.currentLI.isFlipped = true;
+      event.target.currentLI.numClicks++;
+      totalMoves++;
+    }
   }
   if(event.target.nodeName === 'I'){
-    event.target.parentNode.classList.add('open', 'show');
-    event.target.parentNode.currentLI.isFlipped = true;
-    event.target.parentNode.currentLI.isClickable = false;
-    event.target.parentNode.currentLI.numClicks++;
+    if(!event.target.parentNode.currentLI.isFlipped){
+      event.target.parentNode.classList.add('open', 'show');
+      event.target.parentNode.currentLI.isFlipped = true;
+      event.target.parentNode.currentLI.numClicks++;
+      totalMoves++;
+    }
   }
 }
 
