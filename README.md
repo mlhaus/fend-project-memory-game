@@ -20,4 +20,6 @@ Play the game by visiting: [https://mlhaus.github.io/fend-project-memory-game/](
 
 ## Known Bugs
 
-The user can click on 3 or more cards really fast. I may want to prevent extra clicks until the first two cards turn back over.
+- The user can click on 3 or more cards really fast. I may want to prevent extra clicks until the first two cards turn back over.
+- When there is one correct match, the user can click on already correctly guessed cards to have the move count go up.
+- When the user clicks the game board outside the cards, the move count goes up and 'Uncaught TypeErrors' are thrown

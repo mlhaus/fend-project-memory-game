@@ -25,6 +25,7 @@ function playAgain(event){
 }
 
 function displayGameOverModal() {
+  gameOverModal.querySelector('#moveSummary').textContent = totalMoves + ' Moves';
   gameOverModal.classList.remove('hidden');
   gameOverModal.querySelector('a').addEventListener('click', playAgain);
 }
@@ -98,7 +99,7 @@ function setupBoard() {
     newDeck.cards[i].numClicks = 0;
     let cardLI = document.createElement('li');
     cardLI.currentLI = newDeck.cards[i];
-    cardLI.classList.add('card', 'open', 'show'); // Add  'open' and 'show' to the argument list to preview the cards
+    cardLI.classList.add('card'); // Add  'open' and 'show' to the argument list to preview the cards
     let cardSymbol = document.createElement('i');
     cardSymbol.classList.add('fa', 'fa-' + newDeck.cards[i].symbol);
     cardLI.appendChild(cardSymbol);
