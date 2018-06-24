@@ -5,7 +5,9 @@ let newDeck = new Deck();
 const numGameCards = 16;
 const gameBoard = document.querySelector('.deck');
 const gameOverModal = document.getElementById('gameOverModal');
+const totalMovesNode = document.querySelector('.moves');
 let totalMoves = 0;
+let totalClicks = 0;
 let correctGuesses = 0;
 let starRating = 3;
 let thisCard;
@@ -58,7 +60,7 @@ function respondToImageClick(event){
       thisNode.classList.add('open', 'show');
       thisCard.isFlipped = true;
       thisCard.numClicks++;
-      totalMoves++;
+      totalClicks++;
     }
   }
   if(event.target.nodeName === 'I'){
@@ -68,14 +70,15 @@ function respondToImageClick(event){
       thisNode.classList.add('open', 'show');
       thisCard.isFlipped = true;
       thisCard.numClicks++;
-      totalMoves++;
+      totalClicks++;
     }
   }
-  if(totalMoves % 2 === 1) {
+  if(totalClicks % 2 === 1) {
     card1 = thisCard;
     node1 = thisNode;
   }
   else {
+    totalMovesNode.textContent = ++totalMoves;
     card2 = thisCard;
     node2 = thisNode;
     doCardsMatch(card1, card2, node1, node2);
@@ -85,6 +88,8 @@ function respondToImageClick(event){
 function setupBoard() {
   gameBoard.innerHTML = '';
   totalMoves = 0;
+  totalMovesNode.textContent = totalMoves;
+  totalClicks = 0;
   correctGuesses = 0;
   starRating = 3;
   gameOverModal.classList.add('hidden');
