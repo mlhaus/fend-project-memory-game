@@ -28,23 +28,40 @@
 let totalMoves = 0;
 let correctGuesses = 0;
 let starRating = 3;
+let thisCard;
+let card1;
+let card2;
+
+function doCardsMatch(c1, c2) {
+  console.log(c1);
+  console.log(c2);
+}
 
 function respondToImageClick(event){
   if(event.target.nodeName === 'LI'){
-    if(!event.target.currentLI.isFlipped){
+    thisCard = event.target.currentLI;
+    if(!thisCard.isFlipped){
       event.target.classList.add('open', 'show');
-      event.target.currentLI.isFlipped = true;
-      event.target.currentLI.numClicks++;
+      thisCard.isFlipped = true;
+      thisCard.numClicks++;
       totalMoves++;
     }
   }
   if(event.target.nodeName === 'I'){
-    if(!event.target.parentNode.currentLI.isFlipped){
-      event.target.parentNode.classList.add('open', 'show');
-      event.target.parentNode.currentLI.isFlipped = true;
-      event.target.parentNode.currentLI.numClicks++;
+    thisCard = event.target.parentNode.currentLI;
+    if(!thisCard.currentLI.isFlipped){
+      event.target.classList.add('open', 'show');
+      thisCard.isFlipped = true;
+      thisCard.numClicks++;
       totalMoves++;
     }
+  }
+  if(totalMoves % 2 === 1) {
+    card1 = thisCard;
+  }
+  else {
+    card2 = thisCard;
+    doCardsMatch(card1, card2);
   }
 }
 
