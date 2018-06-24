@@ -152,3 +152,7 @@ h1 {
   font-size: 80px;
   text-shadow: 5px 5px 20px rgba(46, 61, 73, 0.5);
 }
+
+.hidden {
+  display: none;
+}

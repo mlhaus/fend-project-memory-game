@@ -1,32 +1,10 @@
 /* globals Card, Deck */
 'use strict';
 
-/*
- * Create a list that holds all of your cards
- */
-
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
-
+let newDeck = new Deck();
 const numGameCards = 16;
 const gameBoard = document.querySelector('.deck');
+const gameOverModal = document.getElementById('gameOverModal');
 let totalMoves = 0;
 let correctGuesses = 0;
 let starRating = 3;
@@ -36,9 +14,20 @@ let card2;
 let thisNode;
 let node1;
 let node2;
-let gameOver = false;
 
-function isGameOver() {
+function playAgain(event){
+  if(event.target.nodeName === 'A'){
+    newDeck.shuffle(newDeck.cards);
+    setupBoard();
+  }
+}
+
+function displayGameOverModal() {
+  gameOverModal.classList.remove('hidden');
+  gameOverModal.querySelector('a').addEventListener('click', playAgain);
+}
+
+function gameOver() {
   return correctGuesses === numGameCards / 2;
 }
 
@@ -51,7 +40,9 @@ function doCardsMatch(c1, c2, n1, n2) {
     n1.classList.add('match');
     n2.classList.add('match');
     correctGuesses++;
-    gameOver = isGameOver();
+    if(gameOver()) {
+      displayGameOverModal();
+    }
   }
   else {
     c1.isFlipped = false;
@@ -91,16 +82,18 @@ function respondToImageClick(event){
   }
 }
 
-function setupBoard(numCards) {
-  gameBoard.addEventListener('click', respondToImageClick);
+function setupBoard() {
   gameBoard.innerHTML = '';
   totalMoves = 0;
   correctGuesses = 0;
   starRating = 3;
-  for(let i = 0; i < numCards; i++){
+  gameOverModal.classList.add('hidden');
+  for(let i = 0; i < numGameCards; i++){
+    newDeck.cards[i].isFlipped = false;
+    newDeck.cards[i].numClicks = 0;
     let cardLI = document.createElement('li');
     cardLI.currentLI = newDeck.cards[i];
-    cardLI.classList.add('card'); // Add  'open' and 'show' to the argument list to preview the cards
+    cardLI.classList.add('card', 'open', 'show'); // Add  'open' and 'show' to the argument list to preview the cards
     let cardSymbol = document.createElement('i');
     cardSymbol.classList.add('fa', 'fa-' + newDeck.cards[i].symbol);
     cardLI.appendChild(cardSymbol);
@@ -108,14 +101,17 @@ function setupBoard(numCards) {
   }
 }
 
-function initialize(numCards) {
+function initialize() {
   let cardImages = ['diamond', 'paper-plane-o', 'anchor', 'bolt', 'cube', 'leaf', 'bicycle', 'bomb'];
-  for(let i = 0; i < numCards; i++){
-    let newCard = new Card(cardImages[i % (numCards / 2)]);
+  for(let i = 0; i < numGameCards; i++){
+    let newCard = new Card(cardImages[i % (numGameCards / 2)]);
     newDeck.cards.push(newCard);
   }
   newDeck.shuffle(newDeck.cards);
-  setupBoard(numCards);
+  gameBoard.addEventListener('click', respondToImageClick);
+  setupBoard();
 }
-let newDeck = new Deck();
-initialize(numGameCards);
+
+window.addEventListener('load', function() {
+  initialize();
+});
