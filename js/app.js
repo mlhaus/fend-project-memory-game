@@ -16,7 +16,7 @@ let node1;
 let node2;
 
 function playAgain(event){
-  if(event.target.nodeName === 'A'){
+  if(event.target.nodeName === 'A' || event.target.nodeName === 'I'){
     newDeck.shuffle(newDeck.cards);
     setupBoard();
   }
@@ -109,6 +109,7 @@ function initialize() {
   }
   newDeck.shuffle(newDeck.cards);
   gameBoard.addEventListener('click', respondToImageClick);
+  document.querySelector('.restart').addEventListener('click', playAgain);
   setupBoard();
 }
 
