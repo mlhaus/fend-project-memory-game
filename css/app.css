@@ -126,3 +126,15 @@ h1 {
   padding: 32px;
   border-radius: 10px;
 }
+
+.button {
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  color: white;
+  background-color: #b0c;
+  padding: 20px 0px;
+  width: 150px;
+  border-radius: 10px;
+}
