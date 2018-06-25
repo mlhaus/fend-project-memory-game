@@ -6,16 +6,36 @@ const numGameCards = 16;
 const gameBoard = document.querySelector('.deck');
 const gameOverModal = document.getElementById('gameOverModal');
 const totalMovesNode = document.querySelector('.moves');
+const starNodes = document.querySelectorAll('.stars li');
 let totalMoves = 0;
 let totalClicks = 0;
 let correctGuesses = 0;
-let starRating = 3;
 let thisCard;
 let card1;
 let card2;
 let thisNode;
 let node1;
 let node2;
+
+function updateStars(){
+  console.log(starNodes[0].childNodes[0]);
+  if(totalMoves === 12){
+    starNodes[2].childNodes[0].classList.remove('fa-star');
+    starNodes[2].childNodes[0].classList.add('fa-star-half-o');
+  }
+  if(totalMoves === 16){
+    starNodes[2].childNodes[0].classList.remove('fa-star-half-o');
+    starNodes[2].childNodes[0].classList.add('fa-star-o');
+  }
+  if(totalMoves === 20){
+    starNodes[1].childNodes[0].classList.remove('fa-star');
+    starNodes[1].childNodes[0].classList.add('fa-star-half-o');
+  }
+  if(totalMoves === 24){
+    starNodes[1].childNodes[0].classList.remove('fa-star-half-o');
+    starNodes[1].childNodes[0].classList.add('fa-star-o');
+  }
+}
 
 function playAgain(event){
   if(event.target.nodeName === 'A' || event.target.nodeName === 'I'){
@@ -80,6 +100,7 @@ function respondToImageClick(event){
   }
   else {
     totalMovesNode.textContent = ++totalMoves;
+    updateStars();
     card2 = thisCard;
     node2 = thisNode;
     doCardsMatch(card1, card2, node1, node2);
@@ -92,7 +113,12 @@ function setupBoard() {
   totalMovesNode.textContent = totalMoves;
   totalClicks = 0;
   correctGuesses = 0;
-  starRating = 3;
+  for(let i = 0; i < 3; i++){
+    starNodes[i].removeChild(starNodes[i].childNodes[0]);
+    let starI = document.createElement('i');
+    starI.classList.add('fa', 'fa-star');
+    starNodes[i].appendChild(starI);
+  }
   gameOverModal.classList.add('hidden');
   for(let i = 0; i < numGameCards; i++){
     newDeck.cards[i].isFlipped = false;
