@@ -81,36 +81,33 @@ function doCardsMatch(c1, c2, n1, n2) {
 }
 
 function respondToImageClick(event){
-  if(event.target.nodeName === 'LI'){
-    thisNode = event.target;
-    thisCard = thisNode.currentLI;
+  if(event.target.nodeName === 'LI' || event.target.nodeName === 'I') {
+    if(event.target.nodeName === 'LI'){
+      thisNode = event.target;
+      thisCard = thisNode.currentLI;
+    }
+    if(event.target.nodeName === 'I'){
+      thisNode = event.target.parentNode;
+      thisCard = thisNode.currentLI;
+    }
     if(!thisCard.isFlipped){
       thisNode.classList.add('open', 'show');
       thisCard.isFlipped = true;
       thisCard.numClicks++;
       totalClicks++;
+
+      if(totalClicks % 2 === 1) {
+        card1 = thisCard;
+        node1 = thisNode;
+      }
+      else {
+        totalMovesNode.textContent = ++totalMoves;
+        updateStars();
+        card2 = thisCard;
+        node2 = thisNode;
+        doCardsMatch(card1, card2, node1, node2);
+      }
     }
-  }
-  if(event.target.nodeName === 'I'){
-    thisNode = event.target.parentNode;
-    thisCard = thisNode.currentLI;
-    if(!thisCard.isFlipped){
-      thisNode.classList.add('open', 'show');
-      thisCard.isFlipped = true;
-      thisCard.numClicks++;
-      totalClicks++;
-    }
-  }
-  if(totalClicks % 2 === 1) {
-    card1 = thisCard;
-    node1 = thisNode;
-  }
-  else {
-    totalMovesNode.textContent = ++totalMoves;
-    updateStars();
-    card2 = thisCard;
-    node2 = thisNode;
-    doCardsMatch(card1, card2, node1, node2);
   }
 }
 
