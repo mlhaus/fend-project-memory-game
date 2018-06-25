@@ -20,22 +20,22 @@ let node2;
 
 function updateStars(){
   console.log(starNodes[0].childNodes[0]);
-  if(totalMoves === 12){
+  if(totalMoves === numGameCards){
     starNodes[2].childNodes[0].classList.remove('fa-star');
     starNodes[2].childNodes[0].classList.add('fa-star-half-o');
     starRating -= 0.5;
   }
-  if(totalMoves === 16){
+  if(totalMoves === numGameCards * 1.25){
     starNodes[2].childNodes[0].classList.remove('fa-star-half-o');
     starNodes[2].childNodes[0].classList.add('fa-star-o');
     starRating -= 0.5;
   }
-  if(totalMoves === 20){
+  if(totalMoves === numGameCards * 1.5){
     starNodes[1].childNodes[0].classList.remove('fa-star');
     starNodes[1].childNodes[0].classList.add('fa-star-half-o');
     starRating -= 0.5;
   }
-  if(totalMoves === 24){
+  if(totalMoves === numGameCards * 1.75){
     starNodes[1].childNodes[0].classList.remove('fa-star-half-o');
     starNodes[1].childNodes[0].classList.add('fa-star-o');
     starRating -= 0.5;
