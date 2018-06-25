@@ -10,6 +10,7 @@ const starNodes = document.querySelectorAll('.stars li');
 let totalMoves = 0;
 let totalClicks = 0;
 let correctGuesses = 0;
+let starRating = 3.0;
 let thisCard;
 let card1;
 let card2;
@@ -22,18 +23,22 @@ function updateStars(){
   if(totalMoves === 12){
     starNodes[2].childNodes[0].classList.remove('fa-star');
     starNodes[2].childNodes[0].classList.add('fa-star-half-o');
+    starRating -= 0.5;
   }
   if(totalMoves === 16){
     starNodes[2].childNodes[0].classList.remove('fa-star-half-o');
     starNodes[2].childNodes[0].classList.add('fa-star-o');
+    starRating -= 0.5;
   }
   if(totalMoves === 20){
     starNodes[1].childNodes[0].classList.remove('fa-star');
     starNodes[1].childNodes[0].classList.add('fa-star-half-o');
+    starRating -= 0.5;
   }
   if(totalMoves === 24){
     starNodes[1].childNodes[0].classList.remove('fa-star-half-o');
     starNodes[1].childNodes[0].classList.add('fa-star-o');
+    starRating -= 0.5;
   }
 }
 
@@ -46,6 +51,8 @@ function playAgain(event){
 
 function displayGameOverModal() {
   gameOverModal.querySelector('#moveSummary').textContent = totalMoves + ' Moves';
+  gameOverModal.querySelector('#starSummary').textContent = starRating;
+  gameOverModal.querySelector('#starSummary').textContent += (( starRating === 1) ? ' Star' : ' Stars');
   gameOverModal.classList.remove('hidden');
   gameOverModal.querySelector('a').addEventListener('click', playAgain);
 }
@@ -113,6 +120,7 @@ function setupBoard() {
   totalMovesNode.textContent = totalMoves;
   totalClicks = 0;
   correctGuesses = 0;
+  starRating = 3.0;
   for(let i = 0; i < 3; i++){
     starNodes[i].removeChild(starNodes[i].childNodes[0]);
     let starI = document.createElement('i');
