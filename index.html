@@ -16,16 +16,20 @@
         </header>
 
         <section class="score-panel">
-        	<ul class="stars">
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star-half-o"></i></li>
-        		<li><i class="fa fa-star-o"></i></li>
-        	</ul>
+        	<div class="stars"><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i></div>
 
-        	<span class="moves">3</span> Moves
+        	<div>
+            <span class="moves">3</span> Moves
+          </div>
 
           <div class="restart">
-        		<i class="fa fa-repeat"></i>
+            <i class="fa fa-repeat"></i>
+          </div>
+          
+          <div class="timer">
+            <i class="fa fa-pause"></i>
+            <span>00:00:00</span>
+            
         	</div>
         </section>
 
@@ -90,7 +94,7 @@
         <a class="button" href="#">Play Again</a>
       </div>
     </div>
-
+    <script src="js/Timer.js"></script>
     <script src="js/Deck.js"></script>
     <script src="js/Card.js"></script>
     <script src="js/app.js"></script>

@@ -1,12 +1,13 @@
-/* globals Card, Deck */
+/* globals Card, Deck, Timer */
 'use strict';
 
 let newDeck = new Deck();
+let t1 = new Timer(0);
 const numGameCards = 16;
 const gameBoard = document.querySelector('.deck');
 const gameOverModal = document.getElementById('gameOverModal');
 const totalMovesNode = document.querySelector('.moves');
-const starNodes = document.querySelectorAll('.stars li');
+const starNodes = document.querySelector('.stars');
 let totalMoves = 0;
 let totalClicks = 0;
 let correctGuesses = 0;
@@ -19,25 +20,24 @@ let node1;
 let node2;
 
 function updateStars(){
-  console.log(starNodes[0].childNodes[0]);
   if(totalMoves === numGameCards){
-    starNodes[2].childNodes[0].classList.remove('fa-star');
-    starNodes[2].childNodes[0].classList.add('fa-star-half-o');
+    starNodes.childNodes[2].classList.remove('fa-star');
+    starNodes.childNodes[2].classList.add('fa-star-half-o');
     starRating -= 0.5;
   }
   if(totalMoves === numGameCards * 1.25){
-    starNodes[2].childNodes[0].classList.remove('fa-star-half-o');
-    starNodes[2].childNodes[0].classList.add('fa-star-o');
+    starNodes.childNodes[2].classList.remove('fa-star-half-o');
+    starNodes.childNodes[2].classList.add('fa-star-o');
     starRating -= 0.5;
   }
   if(totalMoves === numGameCards * 1.5){
-    starNodes[1].childNodes[0].classList.remove('fa-star');
-    starNodes[1].childNodes[0].classList.add('fa-star-half-o');
+    starNodes.childNodes[1].classList.remove('fa-star');
+    starNodes.childNodes[1].classList.add('fa-star-half-o');
     starRating -= 0.5;
   }
   if(totalMoves === numGameCards * 1.75){
-    starNodes[1].childNodes[0].classList.remove('fa-star-half-o');
-    starNodes[1].childNodes[0].classList.add('fa-star-o');
+    starNodes.childNodes[1].classList.remove('fa-star-half-o');
+    starNodes.childNodes[1].classList.add('fa-star-o');
     starRating -= 0.5;
   }
 }
@@ -46,6 +46,12 @@ function playAgain(event){
   if(event.target.nodeName === 'A' || event.target.nodeName === 'I'){
     newDeck.shuffle(newDeck.cards);
     setupBoard();
+  }
+}
+
+function startPause(event){
+  if(event.target.nodeName === 'I' || event.target.nodeName === 'SPAN'){
+    t1.startPause();
   }
 }
 
@@ -118,12 +124,13 @@ function setupBoard() {
   totalClicks = 0;
   correctGuesses = 0;
   starRating = 3.0;
+  starNodes.innerHTML = '';
   for(let i = 0; i < 3; i++){
-    starNodes[i].removeChild(starNodes[i].childNodes[0]);
     let starI = document.createElement('i');
     starI.classList.add('fa', 'fa-star');
-    starNodes[i].appendChild(starI);
+    starNodes.appendChild(starI);
   }
+  t1.startPause();
   gameOverModal.classList.add('hidden');
   for(let i = 0; i < numGameCards; i++){
     newDeck.cards[i].isFlipped = false;
@@ -147,6 +154,7 @@ function initialize() {
   newDeck.shuffle(newDeck.cards);
   gameBoard.addEventListener('click', respondToImageClick);
   document.querySelector('.restart').addEventListener('click', playAgain);
+  timer.addEventListener('click', startPause);
   setupBoard();
 }
 
