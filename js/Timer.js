@@ -1,59 +1,51 @@
 'use strict';
 
 const timer = document.querySelector('.timer');
-let firstTime = 0;
-let startVal;
-let stopVal;
-let i;
-let functionID;
-let minutes;
-let seconds;
-let span = document.querySelector('#timer span');
 
-let Timer = function(startVal, stopVal = 9999999) {
+let Timer = function(startVal, stopVal) {
   this.startValue = startVal;
   this.stopValue = stopVal;
   this.increment = ((startVal < stopVal) ? 1 : -1);
   this.isPaused = true;
+  this.functionID = 0;
+  this.minutes = 0;
+  this.seconds = 0;
+  let instance = this;
   this.startPause = function() {
-    if(firstTime === 0){
-      startVal = this.startValue;
-      stopVal = this.stopValue;
-      i = this.increment;
-    }
     timer.innerHTML = '';
     let playI = document.createElement('i');
+    playI.classList.add('fa', 'fa-play');
     if(this.isPaused){
+      playI.classList.remove('fa', 'fa-play');
       playI.classList.add('fa', 'fa-pause');
-    }
-    else {
-      playI.classList.add('fa', 'fa-play');
     }
     timer.appendChild(playI);
     let span = document.createElement('span');
     timer.appendChild(span);
-    span.textContent = '00:00';
-
-    this.isPaused = !this.isPaused;
+    instance.minutes = parseInt(instance.startValue / 60);
+    instance.seconds = parseInt(instance.startValue % 60);
+    instance.minutes = instance.minutes < 10 ? '0' + instance.minutes : instance.minutes;
+    instance.seconds = instance.seconds < 10 ? '0' + instance.seconds : instance.seconds;
+    span.textContent = instance.minutes + ':' + instance.seconds;
+    instance.isPaused = !instance.isPaused;
 
     if(!this.isPaused){
-      functionID = setInterval(go, 1000);
+      instance.functionID = setInterval(go, 1000);
     }
     else {
-      clearInterval(functionID);
+      clearInterval(instance.functionID);
     }
 
     function go() {
-      if(startVal === stopVal) {
-        clearInterval(functionID);
+      instance.startValue += instance.increment;
+      if(instance.startValue === instance.stopValue) {
+        clearInterval(instance.functionID);
       }
-      startVal += i;
-      minutes = parseInt(startVal / 60);
-      seconds = parseInt(startVal % 60);
-      console.log(minutes + ' ' + seconds);
-      minutes = minutes < 10 ? '0' + minutes : minutes;
-      seconds = seconds < 10 ? '0' + seconds : seconds;
-      span.textContent = minutes + ':' + seconds;
+      instance.minutes = parseInt(instance.startValue / 60);
+      instance.seconds = parseInt(instance.startValue % 60);
+      instance.minutes = instance.minutes < 10 ? '0' + instance.minutes : instance.minutes;
+      instance.seconds = instance.seconds < 10 ? '0' + instance.seconds : instance.seconds;
+      span.textContent = instance.minutes + ':' + instance.seconds;
     }
   };
 };

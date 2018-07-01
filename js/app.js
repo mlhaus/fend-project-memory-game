@@ -2,7 +2,9 @@
 'use strict';
 
 let newDeck = new Deck();
-let t1 = new Timer(0);
+const timerStart = 0;
+const timerEnd = 300;
+let t1 = new Timer(timerStart, timerEnd);
 const numGameCards = 16;
 const gameBoard = document.querySelector('.deck');
 const gameOverModal = document.getElementById('gameOverModal');
@@ -42,11 +44,18 @@ function updateStars(){
   }
 }
 
+function startNewGame() {
+  t1.startValue = timerStart;
+  t1.stopValue = timerEnd;
+  t1.isPaused = false;
+  t1.startPause();
+  newDeck.shuffle(newDeck.cards);
+  setupBoard();
+}
+
 function playAgain(event){
   if(event.target.nodeName === 'A' || event.target.nodeName === 'I'){
-    t1.startPause();
-    newDeck.shuffle(newDeck.cards);
-    setupBoard();
+    startNewGame();
   }
 }
 
@@ -57,11 +66,14 @@ function startPause(event){
 }
 
 function displayGameOverModal() {
+  t1.startPause();
   gameOverModal.querySelector('#moveSummary').textContent = totalMoves + ' Moves';
   gameOverModal.querySelector('#starSummary').textContent = starRating;
   gameOverModal.querySelector('#starSummary').textContent += (( starRating === 1) ? ' Star' : ' Stars');
+  gameOverModal.querySelector('#timeSummary').textContent = t1.minutes + ':' + t1.seconds;
   gameOverModal.classList.remove('hidden');
-  gameOverModal.querySelector('a').addEventListener('click', playAgain);
+  gameOverModal.querySelector('a').addEventListener('click', startNewGame);
+  
 }
 
 function gameOver() {
@@ -131,13 +143,6 @@ function setupBoard() {
     starI.classList.add('fa', 'fa-star');
     starNodes.appendChild(starI);
   }
-  timer.innerHTML = '';
-  let playI = document.createElement('i');
-  playI.classList.add('fa', 'fa-pause');
-  timer.appendChild(playI);
-  let span = document.createElement('span');
-  span.textContent = '00:00';
-  timer.appendChild(span);
   t1.startPause();
   gameOverModal.classList.add('hidden');
   for(let i = 0; i < numGameCards; i++){
