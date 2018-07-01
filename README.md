@@ -18,6 +18,12 @@ This single-player game consists of pairs of cards, each with different symbols 
 
 Play the game by visiting: [https://mlhaus.github.io/fend-project-memory-game/](https://mlhaus.github.io/fend-project-memory-game/).
 
-## Known Bugs
+## Future considerations
+
+- Add CSS animations when cards are clicked, unsuccessfully matched, and successfully matched.
+- Implement a leaderboard, storing game state using local storage
+- Implement additional optimizations that improve the performance and user experience of the game (keyboard shortcuts for pause/continue, restart, etc).
+
+## Known bugs
 
 - The user can click on 3 or more cards really fast. I may want to prevent extra clicks until the first two cards turn back over.
