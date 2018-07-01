@@ -126,6 +126,20 @@ h1 {
   float: left;
 }
 
+.timer i, .timer span {
+  cursor: pointer;
+  text-align: right;
+}
+
+.timer span {
+  font-family: monospace;
+  font-size: 1.25em;
+}
+
+/*
+ * Styles for the game over modal
+ */
+
 #gameOverModal {
   position: fixed;
   left: 0;
@@ -172,14 +186,4 @@ h1 {
 
 .hidden {
   display: none;
-}
-
-.timer i, .timer span {
-  cursor: pointer;
-  text-align: right;
-}
-
-.timer span {
-  font-family: monospace;
-  font-size: 1.25em;
 }

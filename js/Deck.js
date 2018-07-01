@@ -1,8 +1,15 @@
 'use strict';
 
+/**
+ * Represents a deck of cards.
+ * @constructor
+ */
 let Deck = function() {
   this.cards = [];
-  // Shuffle function from http://stackoverflow.com/a/2450976
+  /** 
+   * Shuffle function from http://stackoverflow.com/a/2450976
+   * @returns {array} - The cards array shuffled in a random order 
+   * */
   this.shuffle = function(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
     while (currentIndex !== 0) {
