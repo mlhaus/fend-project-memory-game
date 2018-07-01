@@ -6,6 +6,9 @@ let startVal;
 let stopVal;
 let i;
 let functionID;
+let minutes;
+let seconds;
+let span = document.querySelector('#timer span');
 
 let Timer = function(startVal, stopVal = 9999999) {
   this.startValue = startVal;
@@ -22,25 +25,35 @@ let Timer = function(startVal, stopVal = 9999999) {
     let playI = document.createElement('i');
     if(this.isPaused){
       playI.classList.add('fa', 'fa-pause');
-      functionID = setInterval(go, 1000);
     }
     else {
       playI.classList.add('fa', 'fa-play');
-      clearInterval(functionID);
     }
     timer.appendChild(playI);
+    let span = document.createElement('span');
+    timer.appendChild(span);
+    span.textContent = '00:00';
+
     this.isPaused = !this.isPaused;
 
-    let span = document.createElement('span');
-    span.textContent = '00:00:00';
-    timer.appendChild(span);
-    
+    if(!this.isPaused){
+      functionID = setInterval(go, 1000);
+    }
+    else {
+      clearInterval(functionID);
+    }
+
     function go() {
       if(startVal === stopVal) {
         clearInterval(functionID);
       }
-      console.log(startVal);
       startVal += i;
+      minutes = parseInt(startVal / 60);
+      seconds = parseInt(startVal % 60);
+      console.log(minutes + ' ' + seconds);
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+      span.textContent = minutes + ':' + seconds;
     }
   };
 };

@@ -44,6 +44,7 @@ function updateStars(){
 
 function playAgain(event){
   if(event.target.nodeName === 'A' || event.target.nodeName === 'I'){
+    t1.startPause();
     newDeck.shuffle(newDeck.cards);
     setupBoard();
   }
@@ -130,6 +131,13 @@ function setupBoard() {
     starI.classList.add('fa', 'fa-star');
     starNodes.appendChild(starI);
   }
+  timer.innerHTML = '';
+  let playI = document.createElement('i');
+  playI.classList.add('fa', 'fa-pause');
+  timer.appendChild(playI);
+  let span = document.createElement('span');
+  span.textContent = '00:00';
+  timer.appendChild(span);
   t1.startPause();
   gameOverModal.classList.add('hidden');
   for(let i = 0; i < numGameCards; i++){

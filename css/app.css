@@ -112,6 +112,9 @@ h1 {
 
 .score-panel .restart {
   float: left;
+}
+
+.score-panel .restart i {
   cursor: pointer;
 }
 
@@ -169,4 +172,14 @@ h1 {
 
 .hidden {
   display: none;
+}
+
+.timer i, .timer span {
+  cursor: pointer;
+  text-align: right;
+}
+
+.timer span {
+  font-family: monospace;
+  font-size: 1.25em;
 }
